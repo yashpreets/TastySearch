@@ -8,13 +8,13 @@ http://blog.teamtreehouse.com/install-node-js-npm-mac
 Setup
 clone the repo
 inside the repo run npm install to install the packages in package.json file.
-global config file set the port on which you want to run default 3900
+In global config file set the port on which you want to run default 3900
 
 Starting the server
 inside the folder run node app.js
 
 For performing the search use /searchReview Api (METHOD GET && POST BOTH)
-http://localhost:3900/searchReview?search=xyz
+http://localhost:3900/searchReview?search=Lord
 
 Sample Response:
 

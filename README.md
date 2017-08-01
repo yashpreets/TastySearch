@@ -22,3 +22,5 @@ Sample Response:
 
 Search Through UI (Just a Basic UI)
 http://localhost:3900/searchTab
+
+The DataSet used for testing is inside dataset folder filename finefoods.txt

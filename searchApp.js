@@ -9,6 +9,13 @@ var NO_OF_SETS_TO_RETURN =20;
 var lineCount = 0;
 var loadParsedData = [];
 var commonFunctions = require('./common/commonFunctions');
+
+exports.openSearchTab = function(req,res){
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    var file = fs.createReadStream('./searchTab.html');
+    file.pipe(res);
+};
+
 exports.searchQuery = function(req,res){
     exports.checkIfDataLoaded(function(){
         console.log("Dataset Length:: ",loadParsedData.length);

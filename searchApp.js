@@ -5,7 +5,7 @@ instream = fs.createReadStream(fileName),
 outstream = new (require('stream'))();
 
 var successStatus = 200;
-var NO_OF_SETS_TO_RETURN =20;
+var NO_OF_SETS_TO_RETURN = 20;
 var lineCount = 0;
 var loadParsedData = [];
 var commonFunctions = require('./common/commonFunctions');
@@ -27,19 +27,25 @@ exports.searchQuery = function(req,res){
 
 exports.getSearchResult = function(req,res,callback){
     var searchKeywords = req.query.search;
+    var noOfSearchResultsToDisplay = parseInt(req.query.records);
+    if(commonFunctions.isEmpty(noOfSearchResultsToDisplay)){
+        noOfSearchResultsToDisplay = NO_OF_SETS_TO_RETURN;
+    }
     var result;
     if(commonFunctions.isEmpty(searchKeywords)){
         result = "Enter search string";
     }else{
         var wordList = searchKeywords.split(" ");
-        console.log("getSearchResult:: ",wordList);
+        var distinctWordList = commonFunctions.getUniqueElement(wordList);
+        var noOfWordsToSearch = distinctWordList.length;
+        console.log("getSearchResult:: ",distinctWordList);
         var searchResults = [];
         for(var idx in loadParsedData){
             var reviewSet = loadParsedData[idx];
             var review = reviewSet.review;
             var wordsFound = 0;
-            for(var j in wordList){
-                var word = wordList[j];
+            for(var j in distinctWordList){
+                var word = distinctWordList[j];
                 var found = 0;
                 if(review.summary.indexOf(word) !== -1){
                    found = 1;
@@ -50,13 +56,16 @@ exports.getSearchResult = function(req,res,callback){
                 wordsFound += found;
             }
             if(wordsFound > 0){
-                searchResults[idx] = {};
-                if(searchResults.length < NO_OF_SETS_TO_RETURN){
-                    searchResults[idx].matches = wordsFound;
+                searchResults[idx] = 0;
+                if(searchResults.length <= noOfSearchResultsToDisplay+1){
+                    searchResults[idx] = wordsFound;
                 }else{
                     searchResults = replaceTheMinimum(searchResults,wordsFound,idx);
                 }
             }
+        }
+        if(searchResults.length > noOfSearchResultsToDisplay){
+            searchResults = replaceTheMinimum(searchResults,wordsFound,idx);
         }
         var result = {};
         result.searchedData = [];
@@ -101,7 +110,6 @@ function replaceTheMinimum(searchResults,wordsFound,idx){
 
 
 exports.checkIfDataLoaded = function(callback){
-    console.log("res");
     if(loadParsedData.length != 0 ){
         callback();
     }

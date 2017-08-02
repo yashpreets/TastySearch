@@ -32,3 +32,11 @@ exports.endRequest = function(res,status,body){
     res.status(status).send(body);
     res.end;
 };
+
+exports.getUniqueElement = function(wordList){
+    function onlyUnique(value, index, self) { 
+        return self.indexOf(value) === index;
+    }
+    var unique = wordList.filter( onlyUnique );
+    return unique;
+};

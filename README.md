@@ -27,3 +27,5 @@ http://localhost:3900/searchTab
 The DataSet used for testing is inside dataset folder filename finefoods.txt
 
 Sample Load Testing script included in Loadtest folder
+
+Random QuerySet can be generated using script in querySet folder

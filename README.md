@@ -1,5 +1,6 @@
 # TastySearch
 Search Reviews Based On Keywords input
+https://docs.google.com/document/d/19CEm-sU3nO2eU2G8DU8lHFS4MniCZnjDK2Q57b4g2aY/
 
 Installation 
 Requires Node and npm
@@ -24,3 +25,5 @@ Search Through UI (Just a Basic UI)
 http://localhost:3900/searchTab
 
 The DataSet used for testing is inside dataset folder filename finefoods.txt
+
+Sample Load Testing script included in Loadtest folder
